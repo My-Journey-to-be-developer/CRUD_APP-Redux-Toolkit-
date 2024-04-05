@@ -7,6 +7,7 @@ export const userDetail = createSlice({
         loading: false,
         error:null,
     },
+   
 });
 
 export default userDetail.reducer;
