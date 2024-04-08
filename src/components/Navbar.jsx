@@ -1,7 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux"
 
 const Navbar = () => {
+  const count = useSelector((state)=>state.app.users)
  return (
     <nav className="bg-gray-300 h-14">
       <div className="flex items-center justify-between h-14">
@@ -15,7 +17,7 @@ const Navbar = () => {
               <Link to="/">Create Post</Link>
               </li>
             <li className="">
-              <Link to="/read">All Post</Link>
+              <Link to="/read">All Post ({count.length})</Link>
               </li>
           </ul>
         </div>

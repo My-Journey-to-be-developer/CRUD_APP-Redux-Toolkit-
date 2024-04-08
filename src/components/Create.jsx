@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createUser } from "../app/features/UserDetailSlice";
+import { createUser } from "../features/UserDetailSlice";
 import {useNavigate} from "react-router-dom";
 
 const Create = () => {
@@ -9,8 +9,9 @@ const Create = () => {
   const dispatch = useDispatch();
 const navigate = useNavigate();
   const getUserData = (e) => {
+    
     setUsers({ ...users, [e.target.name]: e.target.value });
-    // console.log(users);
+    console.log(users);
   };
 
   const handleSubmit = (e) => {
@@ -33,6 +34,7 @@ const navigate = useNavigate();
             className="bg-gray-200 h-8"
             type="text"
             name="name"
+            autoComplete="off"
             onChange={getUserData}
           />
         </div>
@@ -42,6 +44,7 @@ const navigate = useNavigate();
             className="bg-gray-200 h-8"
             type="email"
             name="email"
+            autoComplete="off"
             onChange={getUserData}
           />
         </div>
@@ -51,6 +54,7 @@ const navigate = useNavigate();
             className="bg-gray-200 h-8"
             type="number"
             name="age"
+            autoComplete="off"
             onChange={getUserData}
           />
         </div>

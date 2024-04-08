@@ -18,7 +18,20 @@ try {
 }
 
 }
-)
+);
+
+//read action
+export const showUser = createAsyncThunk("showUser", async (args, {rejectWithValue})=>{
+const response = await fetch("https://660efba6356b87a55c509dd7.mockapi.io/CRUD");
+try {
+    const result = await response.json();
+    // console.log(result);
+    return result;
+} catch (error) {
+    rejectWithValue(error);
+}
+}
+);
 
 export const userDetail = createSlice({
     name: "userDetail",
@@ -38,8 +51,20 @@ export const userDetail = createSlice({
         builder.addCase(createUser.rejected,(state,action)=>{
             state.loading = false;
             state.users = action.payload;
-        });
-    }
+        }),
+        builder.addCase(showUser.pending,(state)=>{
+            state.loading = true;
+        }),
+       builder.addCase(showUser.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.users = action.payload;
+            console.log(action.payload); 
+        }),
+        builder.addCase(showUser.rejected,(state,action)=>{
+            state.loading = false;
+            state.users = action.payload;
+        })
+    },
    
 });
 
