@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { showUser } from "../features/UserDetailSlice";
+import { showUser,deleteUser } from "../features/UserDetailSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import ReadSub from "./ReadSub";
@@ -8,7 +8,7 @@ import CustomModal from "./CustomModal";
 const Read = () => {
   const dispatch = useDispatch();
   const { users, loading } = useSelector((state) => state.app);
-  console.log(users);
+  // console.log(users);
   const [id, setId] = useState();
   const [showPopup, setShowPopup] = useState(false);
 
@@ -46,7 +46,9 @@ const Read = () => {
                     <button className="w-[60px] bg-gray-500 mr-4 rounded-md text-slate-200 hover:text-blue-500">
                       Edit
                     </button>
-                    <button className="w-[60px] bg-gray-500 mr-4 rounded-md text-slate-200 hover:text-blue-500">
+                    <button 
+                    onClick={()=>dispatch(deleteUser(element.id))}
+                    className="w-[60px] bg-gray-500 mr-4 rounded-md text-slate-200 hover:text-blue-500">
                       Delete
                     </button>
                   </div>

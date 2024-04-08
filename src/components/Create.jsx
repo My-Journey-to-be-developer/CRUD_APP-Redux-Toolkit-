@@ -11,12 +11,12 @@ const navigate = useNavigate();
   const getUserData = (e) => {
     
     setUsers({ ...users, [e.target.name]: e.target.value });
-    console.log(users);
+    // console.log(users);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(users);
+    // console.log(users);
     dispatch(createUser(users));
     navigate("/read");
   };
