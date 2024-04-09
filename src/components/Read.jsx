@@ -13,6 +13,7 @@ const Read = () => {
   // console.log(typeof(search)); //string
   const [id, setId] = useState();
   const [showPopup, setShowPopup] = useState(false);
+  const [radioData, setRadioData] = useState("")
 
   useEffect(() => {
     dispatch(showUser());
@@ -25,7 +26,41 @@ const Read = () => {
     <>
       <div>
         {showPopup && <CustomModal id={id} showPopup={showPopup} setShowPopup={setShowPopup}/>}
-        <h2>All Data</h2>
+        <h2 className="font-bold">All Data</h2>
+        <div className="flex items-center justify-center mx-auto">
+        <div className="">
+          <input
+            className=""
+            type="radio"
+            name="gender"
+            checked={radioData===""}
+            onChange={(e)=>setRadioData("")}
+          />
+          <label className="ml-1">All</label>
+        </div>
+        <div className="ml-2">
+          <input
+            className=""
+            type="radio"
+            name="gender"
+            value="Male"
+            checked={radioData==="Male"}
+            onChange={(e)=>setRadioData(e.target.value)}
+          />
+          <label className="ml-1">Male</label>
+        </div>
+        <div className="ml-2">
+          <input
+            className="mr-1"
+            type="radio"
+            name="gender"
+            value="Female"
+            checked={radioData==="Female"}
+            onChange={(e)=>setRadioData(e.target.value)}
+        />
+          <label>Female</label>
+        </div>
+        </div>
         <div>
           {users &&
             users.
@@ -38,6 +73,15 @@ const Read = () => {
                   .includes(search.toLowerCase());
                 }
             })
+
+            .filter((ele)=>{
+              if (radioData === "Male"){
+                return ele.gender ===radioData;
+              }else if (radioData === "Female"){
+                return ele.gender ===radioData;
+              }else return ele;
+            })
+            
               .map((element) => (
               <>
                 <div key={element.id} className="my-4 bg-gray-300 w-[25vw] mx-auto rounded-lg flex flex-col items-start">
