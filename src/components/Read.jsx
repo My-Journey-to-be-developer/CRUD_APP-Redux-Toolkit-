@@ -8,8 +8,9 @@ import { Link } from "react-router-dom";
 
 const Read = () => {
   const dispatch = useDispatch();
-  const { users, loading } = useSelector((state) => state.app);
+  const { users, loading, search } = useSelector((state) => state.app);
   // console.log(users);
+  // console.log(typeof(search)); //string
   const [id, setId] = useState();
   const [showPopup, setShowPopup] = useState(false);
 
@@ -27,7 +28,17 @@ const Read = () => {
         <h2>All Data</h2>
         <div>
           {users &&
-            users.map((element) => (
+            users.
+            filter((ele)=>{
+                if(search.length===0){
+                  return ele;
+                }else{
+                  return ele.name
+                  .toLowerCase()
+                  .includes(search.toLowerCase());
+                }
+            })
+              .map((element) => (
               <>
                 <div key={element.id} className="my-4 bg-gray-300 w-[25vw] mx-auto rounded-lg flex flex-col items-start">
                   <ReadSub

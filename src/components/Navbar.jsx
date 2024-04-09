@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
-import {useSelector} from "react-redux"
+import {useSelector, useDispatch} from "react-redux"
+import { searchData } from "../features/UserDetailSlice";
 
 const Navbar = () => {
   const count = useSelector((state)=>state.app.users)
+  const dispatch = useDispatch();
+  const [searchDetails, setSearchDetails] = useState("");
+
+  useEffect(()=>{
+    dispatch(searchData(searchDetails));
+  },[searchDetails]);
  return (
     <nav className="bg-gray-300 h-14">
       <div className="flex items-center justify-between h-14">
@@ -22,9 +29,12 @@ const Navbar = () => {
           </ul>
         </div>
         <input
+        
+          value={searchDetails}
           className="w-[25vw] h-12 rounded-lg mr-2 px-3 flex text-2xl items-end justify-center"
           type="search"
           placeholder="Search here....."
+          onChange={(e)=>setSearchDetails(e.target.value)}
         />
       </div>
     </nav>
