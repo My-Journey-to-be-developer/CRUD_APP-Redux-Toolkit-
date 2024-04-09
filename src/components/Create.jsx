@@ -52,7 +52,7 @@ const navigate = useNavigate();
           <label className="mt-4">Age</label>
           <input
             className="bg-gray-200 h-8"
-            type="number"
+            type="text"
             name="age"
             autoComplete="off"
             onChange={getUserData}

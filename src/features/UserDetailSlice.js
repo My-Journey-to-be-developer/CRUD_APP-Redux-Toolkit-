@@ -34,7 +34,7 @@ try {
 );
 
 //delete action
-//read action
+
 export const deleteUser = createAsyncThunk("deleteUser", async (id, {rejectWithValue})=>{
     const response = await fetch(`https://660efba6356b87a55c509dd7.mockapi.io/CRUD/${id}`,
     {method:"DELETE"}
@@ -49,6 +49,28 @@ export const deleteUser = createAsyncThunk("deleteUser", async (id, {rejectWithV
     }
     );
 
+    //update action
+    export const updateUser = createAsyncThunk("updateUser", async (data, {rejectWithValue})=>{
+        console.log("updated data", data);
+        const response = await fetch(`https://660efba6356b87a55c509dd7.mockapi.io/CRUD/${data.id}`,{
+            method: "PUT",
+            headers:{
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify(data)
+        },
+    );
+        try {
+            const result = await response.json();
+            // console.log(result);
+            return result;
+        } catch (error) {
+            rejectWithValue(error);
+        }
+        }
+        );
+
+   
 export const userDetail = createSlice({
     name: "userDetail",
     initialState:{
@@ -92,9 +114,29 @@ export const userDetail = createSlice({
         builder.addCase(deleteUser.rejected,(state,action)=>{
             state.loading = false;
             state.users = action.payload;
+        }),
+        builder.addCase(updateUser.pending,(state)=>{
+            state.loading = true;
+        }),
+        builder.addCase(updateUser.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.users = state.users.map((ele)=>{ 
+                return (ele.id === action.payload.id ? action.payload :ele)
+            });  //OR
+
+            // state.users = state.users.map((ele)=>
+            //     (ele.id === action.payload.id ? action.payload :ele)
+            // );
+
+            });
+       
+       
+      
+        builder.addCase(updateUser.rejected,(state,action)=>{
+            state.loading = false;
+            state.users = action.payload;
         })
     },
-   
-});
+    });
 
 export default userDetail.reducer;

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import ReadSub from "./ReadSub";
 import CustomModal from "./CustomModal";
+import { Link } from "react-router-dom";
 
 const Read = () => {
   const dispatch = useDispatch();
@@ -43,9 +44,10 @@ const Read = () => {
                     >
                       View
                     </button>
-                    <button className="w-[60px] bg-gray-500 mr-4 rounded-md text-slate-200 hover:text-blue-500">
+                    <Link to={`/edit/${element.id}`}
+                    className="w-[60px] bg-gray-500 mr-4 rounded-md text-slate-200 hover:text-blue-500">
                       Edit
-                    </button>
+                    </Link>
                     <button 
                     onClick={()=>dispatch(deleteUser(element.id))}
                     className="w-[60px] bg-gray-500 mr-4 rounded-md text-slate-200 hover:text-blue-500">
